@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'dashboard.dart';
+import 'package:flutter_web2/dashboard.dart';
 
 void main() {
   runApp(MyApp());
