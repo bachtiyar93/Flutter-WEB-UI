@@ -3,7 +3,10 @@ import 'package:flutter_web2/theme/theme.dart';
 import 'data.dart';
 
 
-Widget buildProduk(Car car, int index){
+Widget buildProduk(Car car, int index, BuildContext context){
+  //Ukuran
+  var spesialsize;
+  spesialsize=MediaQuery.of(context).size.width;
   return Container(
     decoration: BoxDecoration(
       color: Colors.white,
@@ -11,13 +14,9 @@ Widget buildProduk(Car car, int index){
         Radius.circular(15),
       ),
     ),
-    padding: EdgeInsets.all(16),
-    margin: EdgeInsets.only(right: index != null ? 16 : 0, left: index == 0 ? 16 : 0),
-    width: 220,
+    padding: EdgeInsets.all(11),
     child: Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-
         Align(
           alignment: Alignment.centerRight,
           child: Container(
@@ -33,7 +32,7 @@ Widget buildProduk(Car car, int index){
                 car.condition,
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 12,
+                  fontSize: spesialsize*0.015,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -42,11 +41,10 @@ Widget buildProduk(Car car, int index){
         ),
 
         SizedBox(
-          height: 8,
+          height: spesialsize*0.02,
         ),
 
         Container(
-          height: 120,
           child: Center(
             child: Hero(
               tag: car.model,
@@ -59,37 +57,39 @@ Widget buildProduk(Car car, int index){
         ),
 
         SizedBox(
-          height: 24,
+          height: spesialsize*0.02,
         ),
 
         Text(
           car.model,
           style: TextStyle(
-            fontSize: 18
+            fontSize: spesialsize*0.03
           ),
         ),
 
         SizedBox(
-          height: 8,
+          height: spesialsize*0.02,
         ),
 
         Text(
           car.brand,
           style: TextStyle(
-            fontSize: 22,
+            fontSize: spesialsize*0.04,
             fontWeight: FontWeight.bold,
             height: 1,
           ),
         ),
+        SizedBox(
+          height: spesialsize*0.02,
+        ),
 
         Text(
-          "per " + (car.condition == "Daily" ? "day" : car.condition == "Weekly" ? "week" : "month"),
+          "Promo " + (car.condition == "Daily" ? "Cuci Gudang" : car.condition == "Weekly" ? "New Arrival" : "Reguler"),
           style: TextStyle(
-            fontSize: 14,
+            fontSize: spesialsize*0.02,
             color: Colors.grey,
           ),
         ),
-
       ],
     ),
   );

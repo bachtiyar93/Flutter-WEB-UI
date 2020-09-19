@@ -8,7 +8,7 @@ class ProdukDetail extends StatefulWidget {
 
   final Car car;
 
-  ProdukDetail({@required this.car});
+  ProdukDetail({@required this.car, BuildContext context});
 
   @override
   _ProdukDetailState createState() => _ProdukDetailState();
@@ -28,7 +28,7 @@ class _ProdukDetailState extends State<ProdukDetail> {
 
   Widget buildIndicator(bool isActive){
     return AnimatedContainer(
-      duration: Duration(milliseconds: 150),
+      duration: Duration(milliseconds: 100),
       margin: EdgeInsets.symmetric(horizontal: 6),
       height: 8,
       width: isActive ? 20 : 8,
@@ -54,18 +54,15 @@ class _ProdukDetailState extends State<ProdukDetail> {
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Container(
-          width: double.infinity,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-
               Expanded(
                 child: Container(
                   padding: EdgeInsets.symmetric(vertical: 16),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-
                       Container(
                         padding: EdgeInsets.symmetric(horizontal: 16),
                         child: Row(
@@ -144,7 +141,7 @@ class _ProdukDetailState extends State<ProdukDetail> {
                       ),
 
                       SizedBox(
-                        height:  spesialsize*0.001,
+                        height:  0.001,
                       ),
 
                       Padding(
@@ -153,14 +150,14 @@ class _ProdukDetailState extends State<ProdukDetail> {
                           widget.car.model,
                           style: TextStyle(
                             color: Colors.black,
-                            fontSize: spesialsize*0.07,
+                            fontSize: 16,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                       ),
 
                       SizedBox(
-                        height: spesialsize*0.001,
+                        height: 0.001,
                       ),
 
                       Padding(
@@ -169,7 +166,7 @@ class _ProdukDetailState extends State<ProdukDetail> {
                           widget.car.brand,
                           style: TextStyle(
                             color: Colors.grey,
-                            fontSize: spesialsize*0.05,
+                            fontSize: 14,
                           ),
                         ),
                       ),
@@ -189,7 +186,6 @@ class _ProdukDetailState extends State<ProdukDetail> {
                             },
                             children: widget.car.images.map((String path) {
                               return Container(
-                                padding: EdgeInsets.symmetric(horizontal: spesialsize*0.001,),
                                 child: Hero(
                                   tag: widget.car.model,
                                   child: Image.network(
@@ -205,8 +201,7 @@ class _ProdukDetailState extends State<ProdukDetail> {
 
                       widget.car.images.length > 1
                       ? Container(
-                        margin: EdgeInsets.symmetric(vertical: spesialsize*0.0001),
-                        height: spesialsize*0.04,
+                        margin: EdgeInsets.symmetric(vertical: spesialsize*0.01),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: buildPageIndicator(),
@@ -215,11 +210,10 @@ class _ProdukDetailState extends State<ProdukDetail> {
                       : Container(),
 
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: spesialsize*0.1),
+                        padding: EdgeInsets.symmetric(horizontal: spesialsize*0.01),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-
                             buildPricePerPeriod(
                               "12",
                               "50K",
@@ -241,17 +235,16 @@ class _ProdukDetailState extends State<ProdukDetail> {
                               "500K",
                               false,
                             ),
-
                           ],
                         ),
                       ),
-
                     ],
                   ),
                 ),
               ),
               
               Container(
+                height: 116,
                 decoration: BoxDecoration(
                   color: Colors.grey[100],
                   borderRadius: BorderRadius.only(
@@ -262,13 +255,12 @@ class _ProdukDetailState extends State<ProdukDetail> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-
                     Padding(
-                      padding: EdgeInsets.only(top: 16, left: 16, right: 16),
+                      padding: EdgeInsets.only(top: 0, left: 16, right: 16),
                       child: Text(
                         "SPECIFICATIONS",
                         style: TextStyle(
-                          fontSize: spesialsize*0.07,
+                          fontSize: 18,
                           fontWeight: FontWeight.bold,
                           color: Colors.grey[400],
                         ),
@@ -276,7 +268,7 @@ class _ProdukDetailState extends State<ProdukDetail> {
                     ),
 
                     Container(
-                      height: spesialsize*0.2,
+                      height: 75,
                       padding: EdgeInsets.only(top: 8, left: 16,),
                       margin: EdgeInsets.only(bottom: 16),
                       child: ListView(
@@ -302,7 +294,7 @@ class _ProdukDetailState extends State<ProdukDetail> {
         ),
       ),
       bottomNavigationBar: Container(
-        height: spesialsize*0.2,
+        height: 75,
         padding: EdgeInsets.all(16),
         decoration: BoxDecoration(
           color: Colors.white,
@@ -320,35 +312,29 @@ class _ProdukDetailState extends State<ProdukDetail> {
                   style: TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
-                    fontSize: spesialsize*0.03,
+                    fontSize: 12,
                   ),
                 ),
-
-                SizedBox(
-                  height: spesialsize*0.02,
-                ),
-
                 Row(
                   children: [
-
                     Text(
                       "Rp. 50.000",
                       style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
-                        fontSize: spesialsize*0.05,
+                        fontSize: 14,
                       ),
                     ),
 
                     SizedBox(
-                      width: spesialsize*0.05,
+                      width: 3,
                     ),
 
                     Text(
                       "per month",
                       style: TextStyle(
                         color: Colors.grey,
-                        fontSize: spesialsize*0.05,
+                        fontSize: 14,
                       ),
                     ),
 
@@ -358,7 +344,7 @@ class _ProdukDetailState extends State<ProdukDetail> {
               ],
             ),
             Container(
-              height: spesialsize*0.1,
+              height: 40,
               decoration: BoxDecoration(
                 color: LightColors.warnaJudul,
                 borderRadius: BorderRadius.all(
@@ -373,7 +359,7 @@ class _ProdukDetailState extends State<ProdukDetail> {
                     style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
-                      fontSize: spesialsize*0.05,
+                      fontSize: 16,
                     ),
                   ),
                 ),
@@ -386,16 +372,9 @@ class _ProdukDetailState extends State<ProdukDetail> {
   }
 
   Widget buildPricePerPeriod(String months, String price, bool selected){
-    var spesialsize;
-    //specialSize
-    if (MediaQuery.of(context).size.height>MediaQuery.of(context).size.width){
-      spesialsize=MediaQuery.of(context).size.width;
-    }else{
-      spesialsize=MediaQuery.of(context).size.height;
-    }
     return Expanded(
       child: Container(
-        height: 110,
+        height: 75,
         padding: EdgeInsets.all(16),
         decoration: BoxDecoration(
           color: selected ? LightColors.warnaJudul : Colors.white,
@@ -410,37 +389,38 @@ class _ProdukDetailState extends State<ProdukDetail> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-
             Text(
               months + " Month",
               style: TextStyle(
                 color: selected ? Colors.white : Colors.black,
-                fontSize: 14,
+                fontSize: 12,
                 fontWeight: FontWeight.bold,
               ),
             ),
 
-            Expanded(
-              child: Container(),
+            Row(
+              children: [
+                Text(
+                  "Rp.",
+                  style: TextStyle(
+                    color: selected ? Colors.white : Colors.black,
+                    fontSize: 17,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(
+                  width: 1,
+                ),
+                Text(
+                  price,
+                  style: TextStyle(
+                    color: selected ? Colors.white : Colors.black,
+                    fontSize: 17,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
             ),
-
-            Text(
-              price,
-              style: TextStyle(
-                color: selected ? Colors.white : Colors.black,
-                fontSize: spesialsize*0.05,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-
-            Text(
-              "Rp.",
-              style: TextStyle(
-                color: selected ? Colors.white : Colors.black,
-                fontSize: spesialsize*0.04,
-              ),
-            ),
-
           ],
         ),
       ),
@@ -456,7 +436,7 @@ class _ProdukDetailState extends State<ProdukDetail> {
       spesialsize=MediaQuery.of(context).size.height;
     }
     return Container(
-      width: 130,
+      width: spesialsize*0.5,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.all(
@@ -474,19 +454,19 @@ class _ProdukDetailState extends State<ProdukDetail> {
             title,
             style: TextStyle(
               color: Colors.grey,
-              fontSize: spesialsize*0.03,
+              fontSize: 14,
             ),
           ),
 
           SizedBox(
-            height: spesialsize*0.01,
+            height: 0.001,
           ),
 
           Text(
             data,
             style: TextStyle(
               color: Colors.black,
-              fontSize: spesialsize*0.05,
+              fontSize: 18,
               fontWeight: FontWeight.bold,
             ),
           ),

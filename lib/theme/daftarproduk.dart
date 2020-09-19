@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_web2/theme/theme.dart';
 import 'produkdetail.dart';
-import 'car_widget.dart';
+import 'bangunlistproduk.dart';
 import 'data.dart';
 
 class DaftarProduk extends StatefulWidget {
@@ -43,7 +43,6 @@ class _DaftarProdukState extends State<DaftarProduk> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-
               GestureDetector(
                 onTap: () {
                   Navigator.pop(context);
@@ -74,7 +73,7 @@ class _DaftarProdukState extends State<DaftarProduk> {
               ),
 
               Text(
-                "Produk Jadi (" + getCarList().length.toString() + ")",
+                "Produk Jadi (" + getProdukList().length.toString() + ")",
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: spesialsize*0.07,
@@ -89,30 +88,29 @@ class _DaftarProdukState extends State<DaftarProduk> {
               Expanded(
                 child: GridView.count(
                   physics: BouncingScrollPhysics(),
-                  childAspectRatio: 1 / 1.55,
+                  childAspectRatio: 1/1.55,
                   crossAxisCount: 2,
                   crossAxisSpacing: 15,
                   mainAxisSpacing: 15,
-                  children: getCarList().map((item) {
+                  children: getProdukList().map((item) {
                     return GestureDetector(
                       onTap: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => ProdukDetail(car: item)),
+                          MaterialPageRoute(builder: (context) => ProdukDetail(car: item, context: context)),
                         );
                       },
-                      child: buildProduk(item, null)
+                      child: buildProduk(item, null, context)
                     );
                   }).toList(),
                 ),
               ),
-
             ],
           ),
         ),
       ),
       bottomNavigationBar: Container(
-        height: spesialsize*0.19,
+        height: 80,
         decoration: BoxDecoration(
           color: Colors.white,
         ),
@@ -129,16 +127,9 @@ class _DaftarProdukState extends State<DaftarProduk> {
   }
 
   Widget buildFilterIcon(){
-    var spesialsize;
-    //specialSize
-    if (MediaQuery.of(context).size.height>MediaQuery.of(context).size.width){
-      spesialsize=MediaQuery.of(context).size.width;
-    }else{
-      spesialsize=MediaQuery.of(context).size.height;
-    }
     return Container(
-      width: spesialsize*0.09,
-      height: spesialsize*0.09,
+      width: 50,
+      height: 50,
       margin: EdgeInsets.symmetric(horizontal: 16),
       decoration: BoxDecoration(
         color: LightColors.warnaJudul,

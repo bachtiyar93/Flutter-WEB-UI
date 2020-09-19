@@ -29,7 +29,7 @@ class Car {
 
 }
 
-List<Car> getCarList(){
+List<Car> getProdukList(){
   return <Car>[
     Car(
       "SR 33 D",
