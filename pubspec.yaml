@@ -22,6 +22,7 @@ dependencies:
   mime: ^0.9.6+3
   toast: ^0.1.5
   google_fonts: ^1.1.0
+  validators: ^2.0.0
 
 dev_dependencies:
   flutter_test:

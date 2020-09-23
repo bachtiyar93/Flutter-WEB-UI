@@ -4,9 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_web2/theme/daftarproduk.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'fungsi/dashboardchat.dart';
+import 'theme/showmenubar.dart';
 import 'theme/theme.dart';
 
 class HomePage extends StatefulWidget {
+  final snackBar = SnackBar(
+    content: Text('Press back again to leave',
+      textAlign: TextAlign.center,
+      style: TextStyle(
+          color: Colors.white,
+          fontWeight: FontWeight.bold),),
+    duration: Duration(seconds: 3),
+  );
   static CircleAvatar subIconCustom() {
     return CircleAvatar(
       radius: 25.0,
@@ -114,9 +123,12 @@ class _HomePageState extends State<HomePage> {
                               color: LightColors.warnaJudul,
                             ),
                             SizedBox(width: spesialsize*0.05),
-                            Icon(Icons.menu,
-                            size: spesialsize*0.06,
-                              color: LightColors.warnaJudul,
+                            GestureDetector(
+                              onTap: () => ShowMenuBar(context),
+                              child: Icon(Icons.menu,
+                              size: spesialsize*0.06,
+                                color: LightColors.warnaJudul,
+                              ),
                             ),
                           ],
                         ),
@@ -423,7 +435,7 @@ class _HomePageState extends State<HomePage> {
                     padding: EdgeInsets.only(top: 16, right: 16, left: 16),
                     child: Container(
                       decoration: BoxDecoration(
-                        color: LightColors.warnaJudul,
+                        color: LightColors.warnaButton,
                         borderRadius: BorderRadius.all(
                           Radius.circular(15),
                         ),
@@ -444,7 +456,6 @@ class _HomePageState extends State<HomePage> {
                                 style: TextStyle(
                                   fontSize: 22,
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.white,
                                 ),
                               ),
 
@@ -452,7 +463,6 @@ class _HomePageState extends State<HomePage> {
                                 "Khusus Produk Ready",
                                 style: TextStyle(
                                   fontSize: 16,
-                                  color: Colors.white,
                                 ),
                               ),
 

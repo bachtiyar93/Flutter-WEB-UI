@@ -1,145 +1,37 @@
-import 'package:flutter/material.dart';
 
-class NavigationItem {
 
-  IconData iconData;
 
-  NavigationItem(this.iconData);
-
-}
-
-List<NavigationItem> getNavigationItemList(){
-  return <NavigationItem>[
-    NavigationItem(Icons.home),
-    NavigationItem(Icons.calendar_today),
-    NavigationItem(Icons.notifications),
-    NavigationItem(Icons.person),
-  ];
-}
-
-class Car {
+class Produk {
 
   String brand;
   String model;
   double price;
   String condition;
   List<String> images;
-
-  Car(this.brand, this.model, this.price, this.condition, this.images);
+Produk(this.brand, this.model, this.price, this.condition, this.images);
 
 }
 
-List<Car> getProdukList(){
-  return <Car>[
-    Car(
-      "SR 33 D",
-      "Katun Jepang",
-      50.000,
-      "12 Month",
+List<Produk> dataProduk(){
+  return <Produk>[
+    Produk(
+      "Makanan Ringan",
+      "Kerupuk Kadal",
+      2580,
+      "Weekly",
       [
-        "https://sweetroommedan.com/assets/images/whatsapp-image-2020-03-16-at-13.06.46-3-952x952.jpeg",
-        "https://sweetroommedan.com/assets/images/whatsapp-image-2020-03-16-at-13.06.46-3-952x952.jpeg",
-        "https://sweetroommedan.com/assets/images/whatsapp-image-2020-03-16-at-13.06.46-3-952x952.jpeg",
+        "assets/images/land_rover_0.png",
+        "assets/images/land_rover_1.png",
+        "assets/images/land_rover_2.png",
       ],
     ),
-    Car(
-      "SR 50 E",
-      "Katun CVC",
+    Produk(
+      "Makanan Berat",
+      "Nasi Besi Berani",
       3580,
       "Monthly",
       [
-        "https://sweetroommedan.com/assets/images/whatsapp-image-2020-03-16-at-13.06.46-3-952x952.jpeg",
-      ],
-    ),
-    Car(
-      "Nissan",
-      "GTR",
-      1100,
-      "Daily",
-      [
-        "https://sweetroommedan.com/assets/images/whatsapp-image-2020-03-16-at-13.06.46-3-952x952.jpeg",
-        "https://sweetroommedan.com/assets/images/whatsapp-image-2020-03-16-at-13.06.46-3-952x952.jpeg",
-        "https://sweetroommedan.com/assets/images/whatsapp-image-2020-03-16-at-13.06.46-3-952x952.jpeg",
-      ],
-    ),
-    Car(
-      "Acura",
-      "MDX 2020",
-      2200,
-      "Monthly",
-      [
-        "https://sweetroommedan.com/assets/images/whatsapp-image-2020-03-16-at-13.06.46-3-952x952.jpeg",
-        "https://sweetroommedan.com/assets/images/whatsapp-image-2020-03-16-at-13.06.46-3-952x952.jpeg",
-        "https://sweetroommedan.com/assets/images/whatsapp-image-2020-03-16-at-13.06.46-3-952x952.jpeg",
-      ],
-    ),
-    Car(
-      "Chevrolet",
-      "Camaro",
-      3400,
-      "Weekly",
-      [
-        "https://sweetroommedan.com/assets/images/whatsapp-image-2020-03-16-at-13.06.46-3-952x952.jpeg",
-        "https://sweetroommedan.com/assets/images/whatsapp-image-2020-03-16-at-13.06.46-3-952x952.jpeg",
-        "https://sweetroommedan.com/assets/images/whatsapp-image-2020-03-16-at-13.06.46-3-952x952.jpeg",
-      ],
-    ),
-    Car(
-      "Ferrari",
-      "Spider 488",
-      4200,
-      "Weekly",
-      [
-        "https://sweetroommedan.com/assets/images/whatsapp-image-2020-03-16-at-13.06.46-3-952x952.jpeg",
-        "https://sweetroommedan.com/assets/images/whatsapp-image-2020-03-16-at-13.06.46-3-952x952.jpeg",
-        "https://sweetroommedan.com/assets/images/whatsapp-image-2020-03-16-at-13.06.46-3-952x952.jpeg",
-        "https://sweetroommedan.com/assets/images/whatsapp-image-2020-03-16-at-13.06.46-3-952x952.jpeg",
-        "https://sweetroommedan.com/assets/images/whatsapp-image-2020-03-16-at-13.06.46-3-952x952.jpeg",
-        "https://sweetroommedan.com/assets/images/whatsapp-image-2020-03-16-at-13.06.46-3-952x952.jpeg",
-      ],
-    ),
-    Car(
-      "Ford",
-      "Focus",
-      2300,
-      "Weekly",
-      [
-        "https://sweetroommedan.com/assets/images/whatsapp-image-2020-03-16-at-13.06.46-3-952x952.jpeg",
-        "https://sweetroommedan.com/assets/images/whatsapp-image-2020-03-16-at-13.06.46-3-952x952.jpeg",
-        "https://sweetroommedan.com/assets/images/whatsapp-image-2020-03-16-at-13.06.46-3-952x952.jpeg",
-      ],
-    ),
-    Car(
-      "Fiat",
-      "500x",
-      1450,
-      "Weekly",
-      [
-        "https://sweetroommedan.com/assets/images/whatsapp-image-2020-03-16-at-13.06.46-3-952x952.jpeg",
-        "https://sweetroommedan.com/assets/images/whatsapp-image-2020-03-16-at-13.06.46-3-952x952.jpeg",
-        "https://sweetroommedan.com/assets/images/whatsapp-image-2020-03-16-at-13.06.46-3-952x952.jpeg",
-      ],
-    ),
-    Car(
-      "Honda",
-      "Civic",
-      900,
-      "Daily",
-      [
-        "https://sweetroommedan.com/assets/images/whatsapp-image-2020-03-16-at-13.06.46-3-952x952.jpeg",
-        "https://sweetroommedan.com/assets/images/whatsapp-image-2020-03-16-at-13.06.46-3-952x952.jpeg",
-        "https://sweetroommedan.com/assets/images/whatsapp-image-2020-03-16-at-13.06.46-3-952x952.jpeg",
-      ],
-    ),
-    Car(
-      "Citroen",
-      "Picasso",
-      1200,
-      "Monthly",
-      [
-        "https://sweetroommedan.com/assets/images/whatsapp-image-2020-03-16-at-13.06.46-3-952x952.jpeg",
-        "https://sweetroommedan.com/assets/images/whatsapp-image-2020-03-16-at-13.06.46-3-952x952.jpeg",
-        "https://sweetroommedan.com/assets/images/whatsapp-image-2020-03-16-at-13.06.46-3-952x952.jpeg",
+        "https://i0.wp.com/resepkoki.id/wp-content/uploads/2017/09/Resep-Nasi-Uduk-Betawi-1.jpg?fit=2448%2C3264&ssl=1",
       ],
     ),
   ];

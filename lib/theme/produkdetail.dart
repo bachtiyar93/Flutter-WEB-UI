@@ -1,14 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_web2/theme/theme.dart';
+import 'package:intl/intl.dart';
+import 'package:validators/validators.dart';
 import 'data.dart';
 
 
 class ProdukDetail extends StatefulWidget {
 
-  final Car car;
+  final Produk produk;
 
-  ProdukDetail({@required this.car, BuildContext context});
+  ProdukDetail({@required this.produk, BuildContext context});
 
   @override
   _ProdukDetailState createState() => _ProdukDetailState();
@@ -17,10 +19,11 @@ class ProdukDetail extends StatefulWidget {
 class _ProdukDetailState extends State<ProdukDetail> {
 
   int _currentImage = 0;
+  var U = new NumberFormat("'Rp. '###,###.0#", "id_ID");
 
   List<Widget> buildPageIndicator(){
     List<Widget> list = [];
-    for (var i = 0; i < widget.car.images.length; i++) {
+    for (var i = 0; i < widget.produk.images.length; i++) {
       list.add(buildIndicator(i == _currentImage));
     }
     return list;
@@ -147,7 +150,7 @@ class _ProdukDetailState extends State<ProdukDetail> {
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 16),
                         child: Text(
-                          widget.car.model,
+                          widget.produk.model,
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 16,
@@ -163,7 +166,7 @@ class _ProdukDetailState extends State<ProdukDetail> {
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 16),
                         child: Text(
-                          widget.car.brand,
+                          widget.produk.brand,
                           style: TextStyle(
                             color: Colors.grey,
                             fontSize: 14,
@@ -184,22 +187,16 @@ class _ProdukDetailState extends State<ProdukDetail> {
                                 _currentImage = page;
                               });
                             },
-                            children: widget.car.images.map((String path) {
+                            children: widget.produk.images.map((String path) {
                               return Container(
-                                child: Hero(
-                                  tag: widget.car.model,
-                                  child: Image.network(
-                                    path,
-                                    fit: BoxFit.scaleDown,
-                                  ),
-                                ),
+                                child: _bangunGambarDetail(path),
                               );
                             }).toList(),
                           ),
                         ),
                       ),
 
-                      widget.car.images.length > 1
+                      widget.produk.images.length > 1
                       ? Container(
                         margin: EdgeInsets.symmetric(vertical: spesialsize*0.01),
                         child: Row(
@@ -216,7 +213,7 @@ class _ProdukDetailState extends State<ProdukDetail> {
                           children: [
                             buildPricePerPeriod(
                               "12",
-                              "50K",
+                              U.format(widget.produk.price/12).toString(),
                               true,
                             ),
                             SizedBox(
@@ -224,7 +221,7 @@ class _ProdukDetailState extends State<ProdukDetail> {
                             ),
                             buildPricePerPeriod(
                               "6",
-                              "80K",
+                              U.format(widget.produk.price/6).toString(),
                               false,
                             ),
                             SizedBox(
@@ -232,7 +229,7 @@ class _ProdukDetailState extends State<ProdukDetail> {
                             ),
                             buildPricePerPeriod(
                               "1",
-                              "500K",
+                              U.format(widget.produk.price).toString(),
                               false,
                             ),
                           ],
@@ -288,86 +285,11 @@ class _ProdukDetailState extends State<ProdukDetail> {
                   ],
                 ),
               ),
-
             ],
           ),
         ),
       ),
-      bottomNavigationBar: Container(
-        height: 75,
-        padding: EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: Colors.white,
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-
-                Text(
-                  "12 Month",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 12,
-                  ),
-                ),
-                Row(
-                  children: [
-                    Text(
-                      "Rp. 50.000",
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14,
-                      ),
-                    ),
-
-                    SizedBox(
-                      width: 3,
-                    ),
-
-                    Text(
-                      "per month",
-                      style: TextStyle(
-                        color: Colors.grey,
-                        fontSize: 14,
-                      ),
-                    ),
-
-                  ],
-                ),
-
-              ],
-            ),
-            Container(
-              height: 40,
-              decoration: BoxDecoration(
-                color: LightColors.warnaJudul,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(15),
-                ),
-              ),
-              child: Center(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 24),
-                  child: Text(
-                    "Beli ini",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
+      bottomNavigationBar: _bangunBeli(widget:widget, context:context),
     );
   }
 
@@ -398,28 +320,13 @@ class _ProdukDetailState extends State<ProdukDetail> {
               ),
             ),
 
-            Row(
-              children: [
-                Text(
-                  "Rp.",
-                  style: TextStyle(
-                    color: selected ? Colors.white : Colors.black,
-                    fontSize: 17,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(
-                  width: 1,
-                ),
-                Text(
-                  price,
-                  style: TextStyle(
-                    color: selected ? Colors.white : Colors.black,
-                    fontSize: 17,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
+            Text(
+              price,
+              style: TextStyle(
+                color: selected ? Colors.white : Colors.black,
+                fontSize: 17,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ],
         ),
@@ -475,4 +382,101 @@ class _ProdukDetailState extends State<ProdukDetail> {
     );
   }
 
+ Widget  _bangunBeli({ProdukDetail widget, BuildContext context}) {
+    return Container(
+      height: 75,
+      padding: EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+
+              Text(
+                "12 Month",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 12,
+                ),
+              ),
+              Row(
+                children: [
+                  Text(
+                    U.format(widget.produk.price).toString(),
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14,
+                    ),
+                  ),
+
+                  SizedBox(
+                    width: 3,
+                  ),
+
+                  Text(
+                    "per month",
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 14,
+                    ),
+                  ),
+
+                ],
+              ),
+
+            ],
+          ),
+          Container(
+            height: 40,
+            decoration: BoxDecoration(
+              color: LightColors.warnaJudul,
+              borderRadius: BorderRadius.all(
+                Radius.circular(15),
+              ),
+            ),
+            child: Center(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 24),
+                child: Text(
+                  "Beli ini",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+ }
+
+  _bangunGambarDetail(String path) {
+    if (isURL(path)) {
+      return Hero(
+        tag: widget.produk.model,
+        child: Image.network(
+          path,
+          fit: BoxFit.scaleDown,
+        ),
+      );
+    }else{
+      return Hero(
+        tag: widget.produk.model,
+        child: Image.network(
+          "https://www.houseofwellness.com.au/wp-content/uploads/2018/06/smile-GettyImages-882495390-crop.jpg",
+          fit: BoxFit.scaleDown,
+        ),
+      );
+  }
+  }
 }

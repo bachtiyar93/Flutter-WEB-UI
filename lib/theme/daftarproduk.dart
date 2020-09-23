@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_web2/theme/theme.dart';
 import 'produkdetail.dart';
-import 'bangunlistproduk.dart';
+import 'buildproduk.dart';
 import 'data.dart';
 
 class DaftarProduk extends StatefulWidget {
@@ -68,21 +68,17 @@ class _DaftarProdukState extends State<DaftarProduk> {
                 ),
               ),
 
-              SizedBox(
-                height: spesialsize*0.001,
-              ),
-
               Text(
-                "Produk Jadi (" + getProdukList().length.toString() + ")",
+                "Produk Jadi (" + dataProduk().length.toString() + ")",
                 style: TextStyle(
                   color: Colors.black,
-                  fontSize: spesialsize*0.07,
+                  fontSize: spesialsize*0.04,
                   fontWeight: FontWeight.bold,
                 ),
               ),
 
               SizedBox(
-                height:spesialsize*0.001,
+                height:spesialsize*0.01,
               ),
 
               Expanded(
@@ -92,12 +88,12 @@ class _DaftarProdukState extends State<DaftarProduk> {
                   crossAxisCount: 2,
                   crossAxisSpacing: 15,
                   mainAxisSpacing: 15,
-                  children: getProdukList().map((item) {
+                  children: dataProduk().map((item) {
                     return GestureDetector(
                       onTap: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => ProdukDetail(car: item, context: context)),
+                          MaterialPageRoute(builder: (context) => ProdukDetail(produk: item, context: context)),
                         );
                       },
                       child: buildProduk(item, null, context)
