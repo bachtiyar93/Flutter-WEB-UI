@@ -16,6 +16,15 @@ class _DaftarProdukState extends State<DaftarProduk> {
   List<Filter> filters = getFilterList();
   Filter selectedFilter;
 
+  //Duration duration;
+  // Future<List<Produk>> dataProduk() async {
+  //   final start = DateTime.now();
+  //   final result = await dataProduk();
+  //   final finish = DateTime.now();
+  //   duration = finish.difference(start);
+  //   return result;
+  // }
+
   @override
   void initState() {
     super.initState();
@@ -68,38 +77,88 @@ class _DaftarProdukState extends State<DaftarProduk> {
                 ),
               ),
 
-              Text(
-                "Produk Jadi (" + dataProduk().length.toString() + ")",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: spesialsize*0.04,
-                  fontWeight: FontWeight.bold,
+              FutureBuilder<List<Produk>>(
+                future: dataProduk(),
+                builder: (context, snapshot){
+                  if (snapshot.hasData){
+                    return Text("Ready "+snapshot.data.length.toString()+" lagi",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: spesialsize*0.04,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    );
+                  }else {
+                    return Padding(
+                        padding: EdgeInsets.all(15.0),
+                        child: new LinearProgressIndicator(
+                          backgroundColor: Colors.grey,
+                          valueColor: new AlwaysStoppedAnimation<Color>(
+                              Colors.red),
+                        )
+                    );
+                  }
+                }
                 ),
-              ),
 
               SizedBox(
                 height:spesialsize*0.01,
               ),
 
               Expanded(
-                child: GridView.count(
-                  physics: BouncingScrollPhysics(),
-                  childAspectRatio: 1/1.55,
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 15,
-                  mainAxisSpacing: 15,
-                  children: dataProduk().map((item) {
-                    return GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => ProdukDetail(produk: item, context: context)),
+                child: FutureBuilder<List<Produk>>(
+                    future: dataProduk(),
+                    builder: (context, snapshot){
+                      if (snapshot.hasData) {return
+                        GridView.count(
+                          physics: BouncingScrollPhysics(),
+                          childAspectRatio: 1/1.55,
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 15,
+                          mainAxisSpacing: 15,
+                          children: snapshot.data.map((item) {
+                            return GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => ProdukDetail(produk: item, context: context)),
+                                );
+                              },
+                              child: buildProduk(item, null, context)
+                            );
+                          }).toList(),
                         );
-                      },
-                      child: buildProduk(item, null, context)
-                    );
-                  }).toList(),
+                      }else {
+                        return Center(
+                            child: CircularProgressIndicator(
+                              backgroundColor: Colors.grey,
+                              valueColor: new AlwaysStoppedAnimation<Color>(
+                                  Colors.red),
+                            )
+                        );
+                      }
+                    }
                 ),
+
+
+                // GridView.count(
+                //   physics: BouncingScrollPhysics(),
+                //   childAspectRatio: 1/1.55,
+                //   crossAxisCount: 2,
+                //   crossAxisSpacing: 15,
+                //   mainAxisSpacing: 15,
+                //   children: dataProduk().map((item) {
+                //     return GestureDetector(
+                //       onTap: () {
+                //         Navigator.push(
+                //           context,
+                //           MaterialPageRoute(builder: (context) => ProdukDetail(produk: item, context: context)),
+                //         );
+                //       },
+                //       child: buildProduk(item, null, context)
+                //     );
+                //   }).toList(),
+                // ),
               ),
             ],
           ),

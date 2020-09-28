@@ -10,7 +10,7 @@ Widget buildProduk(Produk produk, int index, BuildContext context){
   var spesialsize;
   spesialsize=MediaQuery.of(context).size.width;
   var warnaLabel;
-  warnaLabel=produk.condition == "Baru" ? LightColors.warnaJudul : produk.condition == "Promo" ? Colors.blue : Colors.grey;
+  warnaLabel=produk.stok == "Baru" ? LightColors.warnaJudul : produk.stok == "Promo" ? Colors.blue : Colors.grey;
   return Container(
     decoration: BoxDecoration(
       color: Colors.white,
@@ -34,7 +34,7 @@ Widget buildProduk(Produk produk, int index, BuildContext context){
               padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
               child: Text(
                 // "Promo " + (produk.condition == "Baru" ? "Produk Baru" : produk.condition == "Promo" ? "Terbatas" : "Reguler"),
-              (produk.condition == "Baru" ? produk.condition : produk.condition == "Promo" ? "Terbatas" : "Reguler"),
+              (produk.stok == "Baru" ? produk.stok : produk.stok == "Promo" ? "Terbatas" : "Reguler"),
                 style: TextStyle(
                   fontSize: spesialsize*0.015,
                   color: Colors.white,
@@ -56,7 +56,7 @@ Widget buildProduk(Produk produk, int index, BuildContext context){
         ),
 
         Text(
-          produk.model,
+          produk.seri,
           style: TextStyle(
             fontSize: spesialsize*0.03
           ),
@@ -67,7 +67,7 @@ Widget buildProduk(Produk produk, int index, BuildContext context){
         ),
 
         Text(
-          produk.brand,
+          produk.kain,
           style: TextStyle(
             fontSize: spesialsize*0.03,
             fontWeight: FontWeight.bold,
@@ -86,12 +86,22 @@ Widget buildProduk(Produk produk, int index, BuildContext context){
 _bangunGambar({Produk produk, BuildContext context}) {
   if (isURL(produk.images[0],)) {
     return Container(
+      height: MediaQuery.of(context).size.height*0.23,
       child: Center(
         child: Hero(
-          tag: produk.model,
+          tag: produk.seri,
           child:  Image.network(
-            produk.images[0],
-            fit: BoxFit.fitWidth,
+            produk.images[0],fit: BoxFit.fitWidth,
+            loadingBuilder:(BuildContext context, Widget child,ImageChunkEvent loadingProgress) {
+              if (loadingProgress == null) return child;
+              return Center(
+                child: CircularProgressIndicator(
+                  value: loadingProgress.expectedTotalBytes != null ?
+                  loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes
+                      : null,
+                ),
+              );
+            },
           ),
         ),
       ),
@@ -100,11 +110,14 @@ _bangunGambar({Produk produk, BuildContext context}) {
     return Container(
       child: Center(
         child: Hero(
-          tag: produk.model,
-          child: Image.network(
-        "https://www.houseofwellness.com.au/wp-content/uploads/2018/06/smile-GettyImages-882495390-crop.jpg",
-            fit: BoxFit.fitWidth,
-          ),
+          tag: produk.seri,
+          child: Center(
+              child: CircularProgressIndicator(
+                backgroundColor: Colors.grey,
+                valueColor: new AlwaysStoppedAnimation<Color>(
+                    Colors.red),
+              )
+          )
         ),
       ),
     );
@@ -115,19 +128,19 @@ Widget _bangunHarga(Produk produk, int index, BuildContext context) {
 var spesialsize;
 spesialsize=MediaQuery.of(context).size.width;
 var U = new NumberFormat("'Rp. '###,###.0#", "id_ID");
-if (produk.condition == "Baru"){
+if (produk.stok == "Baru"){
   return Text(
-    U.format(produk.price).toString(),
+    U.format(produk.harga).toString(),
     style: TextStyle(
         fontSize: spesialsize*0.025,
         fontWeight: FontWeight.bold
     ),
   );
-} else if (produk.condition=='Promo'){
+} else if (produk.stok=='Promo'){
   return Column(
     children: [
       Text(
-        U.format(produk.price*1.6).toString(),
+        U.format(produk.harga*1.6).toString(),
         style: TextStyle(
           fontSize: spesialsize*0.023,
           color: Colors.red,
@@ -135,7 +148,7 @@ if (produk.condition == "Baru"){
         ),
       ),
       Text(
-        U.format(produk.price).toString(),
+        U.format(produk.harga).toString(),
         style: TextStyle(
             fontSize: spesialsize*0.025,
             fontWeight: FontWeight.bold
@@ -153,7 +166,7 @@ return Column(
       ),
       ),
     Text(
-      "Rp. " + produk.price.toString(),
+      "Rp. " + produk.harga.toString(),
       style: TextStyle(
           fontSize: spesialsize*0.025,
           fontWeight: FontWeight.bold

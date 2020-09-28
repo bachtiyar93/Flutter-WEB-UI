@@ -150,7 +150,7 @@ class _ProdukDetailState extends State<ProdukDetail> {
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 16),
                         child: Text(
-                          widget.produk.model,
+                          widget.produk.seri,
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 16,
@@ -166,7 +166,7 @@ class _ProdukDetailState extends State<ProdukDetail> {
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 16),
                         child: Text(
-                          widget.produk.brand,
+                          widget.produk.kain,
                           style: TextStyle(
                             color: Colors.grey,
                             fontSize: 14,
@@ -213,7 +213,7 @@ class _ProdukDetailState extends State<ProdukDetail> {
                           children: [
                             buildPricePerPeriod(
                               "12",
-                              U.format(widget.produk.price/12).toString(),
+                              U.format(widget.produk.harga/12).toString(),
                               true,
                             ),
                             SizedBox(
@@ -221,7 +221,7 @@ class _ProdukDetailState extends State<ProdukDetail> {
                             ),
                             buildPricePerPeriod(
                               "6",
-                              U.format(widget.produk.price/6).toString(),
+                              U.format(widget.produk.harga/6).toString(),
                               false,
                             ),
                             SizedBox(
@@ -229,7 +229,7 @@ class _ProdukDetailState extends State<ProdukDetail> {
                             ),
                             buildPricePerPeriod(
                               "1",
-                              U.format(widget.produk.price).toString(),
+                              U.format(widget.produk.harga).toString(),
                               false,
                             ),
                           ],
@@ -408,7 +408,7 @@ class _ProdukDetailState extends State<ProdukDetail> {
               Row(
                 children: [
                   Text(
-                    U.format(widget.produk.price).toString(),
+                    U.format(widget.produk.harga).toString(),
                     style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
@@ -463,15 +463,28 @@ class _ProdukDetailState extends State<ProdukDetail> {
   _bangunGambarDetail(String path) {
     if (isURL(path)) {
       return Hero(
-        tag: widget.produk.model,
+        tag: widget.produk.seri,
         child: Image.network(
           path,
           fit: BoxFit.scaleDown,
+          loadingBuilder:(BuildContext context, Widget child,ImageChunkEvent loadingProgress) {
+            if (loadingProgress == null) return child;
+            return Center(
+              child: CircularProgressIndicator(
+                value: loadingProgress.expectedTotalBytes != null ?
+                loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes
+                    : null,
+                backgroundColor: Colors.grey,
+                valueColor: new AlwaysStoppedAnimation<Color>(
+                    Colors.red),
+              ),
+            );
+          },
         ),
       );
     }else{
       return Hero(
-        tag: widget.produk.model,
+        tag: widget.produk.seri,
         child: Image.network(
           "https://www.houseofwellness.com.au/wp-content/uploads/2018/06/smile-GettyImages-882495390-crop.jpg",
           fit: BoxFit.scaleDown,
